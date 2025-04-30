@@ -7,8 +7,8 @@ public class AppDbContext : DbContext
 
     }
 
-    public DbSet<DTOs.Customer> Customers { get; set; }
-    public DbSet<DTOs.Bookings> Bookings { get; set; }
-    public DbSet<DTOs.Table> Tables { get; set; }
-    public DbSet<DTOs.TimeSlot> TimeSlots { get; set; }
+    public DbSet<Models.Customer> Customers { get; set; }
+    public DbSet<Models.Booking> Bookings { get; set; }
+    public DbSet<Models.Table> Tables { get; set; }
+    public DbSet<Models.TimeSlot> TimeSlots { get; set; }
 }

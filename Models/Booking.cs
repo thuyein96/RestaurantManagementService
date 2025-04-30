@@ -1,11 +1,9 @@
-﻿namespace RestaurantManagementService.DTOs;
+﻿namespace RestaurantManagementService.Models;
 
-public class Bookings
+public class Booking
 {
     public int Id { get; set; }
     public int BookingNumber { get; set; }
-    public string Name { get; set; }
-    public string PhoneNumber { get; set; }
     public int NumberOfPeople { get; set; }
     public string SpecialRequest { get; set; }
     public bool IsConfirmed { get; set; }
