@@ -13,6 +13,15 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(o => o.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 //builder.Services.AddTransient<IBookingService, BookingService>();
+builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
+builder.Services.AddTransient<ITableRepository, TableRepository>();
+builder.Services.AddTransient<ITimeSlotRepository, TimeSlotRepository>();
+builder.Services.AddTransient<IBookingRepository, BookingRepository>();
+
+builder.Services.AddTransient<IBookingService, BookingService>();
+builder.Services.AddTransient<ICustomerService, CustomerService>();
+builder.Services.AddTransient<ITableService, TableService>();
+builder.Services.AddTransient<ITimeSlotService, TimeSlotService>();
 
 var app = builder.Build();
 
