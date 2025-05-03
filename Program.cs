@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using RestaurantManagementService.Data;
 using RestaurantManagementService.Services;
 
@@ -23,6 +24,8 @@ builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<ITableService, TableService>();
 builder.Services.AddTransient<ITimeSlotService, TimeSlotService>();
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,6 +34,14 @@ var app = builder.Build();
 //    app.UseSwagger();
 //    app.UseSwaggerUI();
 //}
+app.UseCors(policy =>
+{
+    policy.WithOrigins("http://localhost:8080")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+});
+
 app.UseSwagger();
 app.UseSwaggerUI();
 

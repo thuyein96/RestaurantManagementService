@@ -34,7 +34,7 @@ public class TimeSlotController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateTimeSlot([FromBody] TimeSlot timeSlot)
+    public async Task<IActionResult> CreateTimeSlot([FromBody] TimeSlotDto timeSlot)
     {
         if (timeSlot == null)
         {
@@ -49,7 +49,7 @@ public class TimeSlotController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateTimeSlot([FromBody] TimeSlot timeSlot)
+    public async Task<IActionResult> UpdateTimeSlot([FromBody] TimeSlotDto timeSlot)
     {
         if (timeSlot == null)
         {

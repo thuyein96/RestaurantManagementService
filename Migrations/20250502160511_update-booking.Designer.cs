@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantManagementService.Data;
 
@@ -11,9 +12,11 @@ using RestaurantManagementService.Data;
 namespace RestaurantManagementService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250502160511_update-booking")]
+    partial class updatebooking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +33,6 @@ namespace RestaurantManagementService.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("BookingDate")
-                        .HasColumnType("date");
-
                     b.Property<int>("BookingNumber")
                         .HasColumnType("int");
 
@@ -40,9 +40,6 @@ namespace RestaurantManagementService.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CustomerId1")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsConfirmed")
@@ -58,25 +55,13 @@ namespace RestaurantManagementService.Migrations
                     b.Property<int>("TableId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TableId1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TimeSlotId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BookingSlotId");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("CustomerId1");
-
                     b.HasIndex("TableId");
-
-                    b.HasIndex("TableId1");
-
-                    b.HasIndex("TimeSlotId");
 
                     b.ToTable("Bookings");
                 });
@@ -134,11 +119,11 @@ namespace RestaurantManagementService.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int>("SlotId")
                         .HasColumnType("int");
-
-                    b.Property<TimeOnly>("Time")
-                        .HasColumnType("time(6)");
 
                     b.HasKey("Id");
 
@@ -150,53 +135,26 @@ namespace RestaurantManagementService.Migrations
                     b.HasOne("RestaurantManagementService.Models.TimeSlot", "BookingSlot")
                         .WithMany()
                         .HasForeignKey("BookingSlotId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("RestaurantManagementService.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("RestaurantManagementService.Models.Customer", null)
-                        .WithMany("Bookings")
-                        .HasForeignKey("CustomerId1");
 
                     b.HasOne("RestaurantManagementService.Models.Table", "Table")
                         .WithMany()
                         .HasForeignKey("TableId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("RestaurantManagementService.Models.Table", null)
-                        .WithMany("Bookings")
-                        .HasForeignKey("TableId1");
-
-                    b.HasOne("RestaurantManagementService.Models.TimeSlot", null)
-                        .WithMany("Bookings")
-                        .HasForeignKey("TimeSlotId");
 
                     b.Navigation("BookingSlot");
 
                     b.Navigation("Customer");
 
                     b.Navigation("Table");
-                });
-
-            modelBuilder.Entity("RestaurantManagementService.Models.Customer", b =>
-                {
-                    b.Navigation("Bookings");
-                });
-
-            modelBuilder.Entity("RestaurantManagementService.Models.Table", b =>
-                {
-                    b.Navigation("Bookings");
-                });
-
-            modelBuilder.Entity("RestaurantManagementService.Models.TimeSlot", b =>
-                {
-                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

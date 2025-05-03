@@ -34,7 +34,7 @@ public class TableController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateTable([FromBody] Table table)
+    public async Task<IActionResult> CreateTable([FromBody] TableDto table)
     {
         if (table == null)
         {
@@ -48,8 +48,8 @@ public class TableController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateTable([FromBody] Table table)
+    [HttpPut]
+    public async Task<IActionResult> UpdateTable([FromBody] TableDto table)
     {
         if (table == null)
         {

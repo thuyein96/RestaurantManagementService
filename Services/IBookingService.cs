@@ -2,9 +2,10 @@
 
 public interface IBookingService
 {
-    Task<List<Booking>> GetAllBookingsAsync();
-    Task<Booking?> GetBookingByIdAsync(int id);
-    Task<ServiceResponse> UpdateBookingAsync(Booking booking);
+    Task<List<BookingDto>> GetAllBookingsAsync();
+    Task<BookingDto?> GetBookingByIdAsync(int id);
+    Task<List<BookingDto>> GetBookingsByCustomerIdAsync(int customerId);
+    Task<ServiceResponse> UpdateBookingAsync(BookingDto booking);
     Task<ServiceResponse> DeleteBookingAsync(int id);
-    Task<ServiceResponse> CreateBookingAsync(Booking booking);
+    Task<ServiceResponse> CreateBookingAsync(BookingDto booking);
 }

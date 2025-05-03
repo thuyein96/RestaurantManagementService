@@ -34,7 +34,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateCustomer([FromBody] Customer customer)
+    public async Task<IActionResult> CreateCustomer([FromBody] CustomerDto customer)
     {
         if (customer == null)
         {
@@ -49,7 +49,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateCustomer([FromBody] Customer customer)
+    public async Task<IActionResult> UpdateCustomer([FromBody] CustomerDto customer)
     {
         if (customer == null)
         {

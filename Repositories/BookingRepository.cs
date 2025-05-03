@@ -28,10 +28,25 @@ public class BookingRepository : IBookingRepository
             .FirstOrDefaultAsync(b => b.Id == id);
     }
 
+    public async Task<IEnumerable<Booking>> GetByCustomerIdAsync(int customerId)
+    {
+        return await _context.Bookings
+            .Include(b => b.Customer)
+            .Include(b => b.Table)
+            .Include(b => b.BookingSlot)
+            .Where(b => b.CustomerId == customerId)
+            .ToListAsync();
+    }
+
     public async Task<bool> IsSlotTakenAsync(int timeSlotId, int tableId)
     {
-        return await _context.Bookings.AnyAsync(b =>
-            b.BookingSlotId == timeSlotId && b.TableId == tableId);
+        var result = _context.Bookings
+            .Include(b => b.Table)
+            .Include(b => b.BookingSlot)
+            .FirstOrDefault(b => b.BookingSlotId == timeSlotId && b.TableId == tableId);
+        return result != null;
+        //return await _context.Bookings.AnyAsync(b =>
+        //    b.BookingSlotId == timeSlotId && b.TableId == tableId);
     }
 
     public async Task AddAsync(Booking booking)

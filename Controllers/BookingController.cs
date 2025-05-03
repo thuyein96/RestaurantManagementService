@@ -33,14 +33,25 @@ public class BookingController : ControllerBase
         return Ok(booking);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> CreateBooking([FromBody] Booking booking)
+    [HttpGet("Customer/{id}")]
+    public async Task<IActionResult> GetBookingByCustomerId(int id)
     {
+        var booking = await _bookingService.GetBookingsByCustomerIdAsync(id);
         if (booking == null)
+        {
+            return NotFound($"Booking with ID {id} not found.");
+        }
+        return Ok(booking);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateBooking([FromBody] BookingDto bookingDto)
+    {
+        if (bookingDto == null)
         {
             return BadRequest("Booking cannot be null.");
         }
-        var response = await _bookingService.CreateBookingAsync(booking);
+        var response = await _bookingService.CreateBookingAsync(bookingDto);
         if (!response.Flag)
         {
             return BadRequest(response.Message);
@@ -50,13 +61,13 @@ public class BookingController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateBooking([FromBody] Booking booking)
+    public async Task<IActionResult> UpdateBooking([FromBody] BookingDto bookingDto)
     {
-        if (booking == null)
+        if (bookingDto == null)
         {
             return BadRequest("Booking cannot be null.");
         }
-        var response = await _bookingService.UpdateBookingAsync(booking);
+        var response = await _bookingService.UpdateBookingAsync(bookingDto);
         if (!response.Flag)
         {
             return BadRequest(response.Message);

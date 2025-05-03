@@ -2,9 +2,9 @@
 
 public interface ICustomerService
 {
-    Task<List<Customer>> GetAllCustomersAsync();
-    Task<Customer?> GetCustomerByIdAsync(int id);
-    Task<ServiceResponse> CreateCustomerAsync(Customer customer);
-    Task<ServiceResponse> UpdateCustomerAsync(Customer customer);
+    Task<List<CustomerDto>> GetAllCustomersAsync();
+    Task<CustomerDto?> GetCustomerByIdAsync(int id);
+    Task<ServiceResponse> CreateCustomerAsync(CustomerDto customer);
+    Task<ServiceResponse> UpdateCustomerAsync(CustomerDto customer);
     Task<ServiceResponse> DeleteCustomerAsync(int id);
 }
